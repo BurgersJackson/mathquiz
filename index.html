@@ -141,6 +141,10 @@
             margin-bottom: 15px;
         }
         
+        .player-select {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        
         .quiz-opt-btn {
             font-size: 22px;
             padding: 20px 15px;
@@ -517,15 +521,36 @@
                     <span class="toggle-slider"></span>
                 </label>
             </div>
+            <p class="score">Number of Players:</p>
+            <div class="quiz-options player-select">
+                <button class="quiz-opt-btn" data-players="1">1</button>
+                <button class="quiz-opt-btn" data-players="2">2</button>
+                <button class="quiz-opt-btn" data-players="3">3</button>
+                <button class="quiz-opt-btn" data-players="4">4</button>
+            </div>
+            <p class="score">Number of Questions:</p>
             <div class="quiz-options">
                 <button class="quiz-opt-btn" data-questions="5">5</button>
                 <button class="quiz-opt-btn" data-questions="10">10</button>
                 <button class="quiz-opt-btn" data-questions="20">20</button>
             </div>
+            <button class="submit-btn" id="btnStartHotSeat">Start Quiz</button>
             <button class="back-btn" id="btnBackSetup">Back to Menu</button>
         </div>
         
+        <div id="playerReadySection" class="hidden">
+            <h2 id="readyTitle">Player 1 Ready?</h2>
+            <div class="result-box">
+                <div class="result-answer" id="readyPlayerName">Player 1</div>
+            </div>
+            <input type="text" class="name-input" id="hotSeatPlayerName" placeholder="Enter your name" maxlength="15">
+            <br>
+            <button class="submit-btn" id="btnPlayerReady">Yes, I'm Ready!</button>
+            <button class="back-btn" id="btnCancelHotSeat">Cancel</button>
+        </div>
+        
         <div id="quizSection" class="hidden">
+            <div class="score" id="playerIndicator">Player 1</div>
             <div class="score">Question <span id="questionNum">1</span>/<span id="totalQuestions">10</span> | Score: <span id="score">0</span></div>
             <div class="timer-bar hidden" id="timerBar">
                 <div class="timer-fill" id="timerFill"></div>
@@ -560,8 +585,15 @@
             <div id="scoreSavedMsg" class="hidden">
                 <p class="score" style="color: #4ECDC4; font-weight: bold;">Score saved!</p>
             </div>
-            <button class="back-btn" id="btnPlayAgain">Play Again</button>
+            <button class="back-btn" id="btnNextPlayer" class="hidden">Next Player</button>
             <button class="back-btn" id="btnMenuDone">Back to Menu</button>
+        </div>
+        
+        <div id="hotSeatResultsSection" class="hidden">
+            <h2>Final Scores!</h2>
+            <div class="highscore-list" id="hotSeatResultsList"></div>
+            <button class="submit-btn" id="btnHotSeatAgain">Play Again</button>
+            <button class="back-btn" id="btnHotSeatMenu">Back to Menu</button>
         </div>
         
         <div id="highScoresSection" class="hidden">
@@ -591,6 +623,8 @@ var quizSetup = document.getElementById('quizSetup');
 var quizSection = document.getElementById('quizSection');
 var doneSection = document.getElementById('doneSection');
 var highScoresSection = document.getElementById('highScoresSection');
+var playerReadySection = document.getElementById('playerReadySection');
+var hotSeatResultsSection = document.getElementById('hotSeatResultsSection');
 var multBtnsContainer = document.getElementById('multBtns');
 var resultExpression = document.getElementById('resultExpression');
 var resultAnswer = document.getElementById('resultAnswer');
@@ -602,6 +636,10 @@ var playerNameInput = document.getElementById('playerName');
 
 var selectedBtns = [];
 var totalQuestions = 10;
+var selectedPlayers = 1;
+var currentPlayer = 1;
+var hotSeatPlayers = [];
+var askedQuestions = [];
 var currentQuestion = 0;
 var correctAnswers = 0;
 var score = 0;
@@ -610,7 +648,6 @@ var timerEnabled = false;
 var timerInterval = null;
 var timeLeft = 5;
 var isChecking = false;
-var askedQuestions = [];
 
 function getHighScores() {
     var scores = localStorage.getItem('mathQuizHighScores');
@@ -676,6 +713,8 @@ function showSection(section) {
     quizSection.classList.add('hidden');
     doneSection.classList.add('hidden');
     highScoresSection.classList.add('hidden');
+    playerReadySection.classList.add('hidden');
+    hotSeatResultsSection.classList.add('hidden');
     section.classList.remove('hidden');
 }
 
@@ -722,6 +761,47 @@ function updateResult() {
         resultExpression.textContent = '? × ?';
         resultAnswer.textContent = '= ?';
     }
+}
+
+function showPlayerReady() {
+    document.getElementById('readyTitle').textContent = 'Player ' + currentPlayer + ' Ready?';
+    document.getElementById('readyPlayerName').textContent = 'Player ' + currentPlayer;
+    document.getElementById('hotSeatPlayerName').value = '';
+    showSection(playerReadySection);
+}
+
+function startHotSeat() {
+    hotSeatPlayers = [];
+    currentPlayer = 1;
+    askedQuestions = [];
+    timerEnabled = timerToggle.checked;
+    showPlayerReady();
+}
+
+function playerReady() {
+    var name = document.getElementById('hotSeatPlayerName').value.trim();
+    if (!name) {
+        name = 'Player ' + currentPlayer;
+    }
+    
+    currentQuestion = 0;
+    correctAnswers = 0;
+    score = 0;
+    
+    document.getElementById('playerIndicator').textContent = name;
+    document.getElementById('totalQuestions').textContent = totalQuestions;
+    document.getElementById('score').textContent = 0;
+    
+    if (timerEnabled) {
+        timerBar.classList.remove('hidden');
+        timerText.classList.remove('hidden');
+    } else {
+        timerBar.classList.add('hidden');
+        timerText.classList.add('hidden');
+    }
+    
+    showSection(quizSection);
+    nextQuestion();
 }
 
 function startQuiz(numQuestions) {
@@ -925,16 +1005,39 @@ function showDone() {
         timerInterval = null;
     }
     
+    var playerName = document.getElementById('playerIndicator').textContent;
+    
+    hotSeatPlayers.push({
+        name: playerName,
+        score: score,
+        correct: correctAnswers,
+        total: totalQuestions
+    });
+    
     showSection(doneSection);
     
     document.getElementById('correctCount').textContent = correctAnswers;
     document.getElementById('totalCount').textContent = totalQuestions;
     document.getElementById('finalScore').textContent = score;
     
-    document.getElementById('nameInputArea').classList.remove('hidden');
+    document.getElementById('nameInputArea').classList.add('hidden');
     document.getElementById('scoreSavedMsg').classList.add('hidden');
     
-    playerNameInput.value = getLastPlayerName();
+    if (selectedPlayers === 1) {
+        saveLastPlayerName(playerName);
+        addHighScore(playerName, score, totalQuestions, correctAnswers);
+        document.getElementById('scoreSavedMsg').classList.remove('hidden');
+        document.getElementById('btnNextPlayer').classList.add('hidden');
+    } else {
+        var btnNext = document.getElementById('btnNextPlayer');
+        if (currentPlayer < selectedPlayers) {
+            btnNext.classList.remove('hidden');
+            btnNext.textContent = 'Next Player';
+        } else {
+            btnNext.classList.remove('hidden');
+            btnNext.textContent = 'See Results';
+        }
+    }
     
     var stars = document.getElementById('stars');
     var title = document.getElementById('doneTitle');
@@ -959,6 +1062,42 @@ function showDone() {
         stars.textContent = '⭐';
         title.textContent = 'Try Again!';
     }
+}
+
+function nextPlayerOrResults() {
+    if (currentPlayer < selectedPlayers) {
+        currentPlayer++;
+        showPlayerReady();
+    } else {
+        showHotSeatResults();
+    }
+}
+
+function showHotSeatResults() {
+    var list = document.getElementById('hotSeatResultsList');
+    
+    hotSeatPlayers.sort(function(a, b) { return b.score - a.score; });
+    
+    var html = '';
+    hotSeatPlayers.forEach(function(p, i) {
+        var medal = '';
+        if (i === 0) medal = '🏆 ';
+        else if (i === 1) medal = '🥈 ';
+        else if (i === 2) medal = '🥉 ';
+        
+        html += '<div class="highscore-item">' +
+            '<span class="highscore-rank">' + medal + '#' + (i + 1) + '</span>' +
+            '<span class="highscore-name">' + escapeHtml(p.name) + '</span>' +
+            '<span class="highscore-score">' + p.score + ' pts</span>' +
+            '</div>';
+    });
+    list.innerHTML = html;
+    
+    if (hotSeatPlayers[0]) {
+        triggerConfetti();
+    }
+    
+    showSection(hotSeatResultsSection);
 }
 
 function saveScore() {
@@ -1040,11 +1179,29 @@ document.getElementById('btnMenuDone').addEventListener('click', function() {
     showSection(mainMenu);
 });
 
-document.getElementById('btnPlayAgain').addEventListener('click', function() {
+document.getElementById('btnSaveScore').addEventListener('click', saveScore);
+
+document.getElementById('btnNextPlayer').addEventListener('click', nextPlayerOrResults);
+
+document.getElementById('btnPlayerReady').addEventListener('click', playerReady);
+
+document.getElementById('btnCancelHotSeat').addEventListener('click', function() {
     showSection(quizSetup);
 });
 
-document.getElementById('btnSaveScore').addEventListener('click', saveScore);
+document.getElementById('btnHotSeatAgain').addEventListener('click', function() {
+    showSection(quizSetup);
+});
+
+document.getElementById('btnHotSeatMenu').addEventListener('click', function() {
+    showSection(mainMenu);
+});
+
+document.getElementById('hotSeatPlayerName').addEventListener('keyup', function(e) {
+    if (e.key === 'Enter') {
+        playerReady();
+    }
+});
 
 playerNameInput.addEventListener('keyup', function(e) {
     if (e.key === 'Enter') {
@@ -1063,11 +1220,28 @@ document.getElementById('btnBackScores').addEventListener('click', function() {
 
 document.getElementById('btnNext').addEventListener('click', closePopup);
 
-document.querySelectorAll('.quiz-opt-btn').forEach(function(btn) {
+document.querySelectorAll('.player-select .quiz-opt-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
-        var num = parseInt(this.dataset.questions);
-        startQuiz(num);
+        document.querySelectorAll('.player-select .quiz-opt-btn').forEach(function(b) {
+            b.style.background = '#4ECDC4';
+        });
+        this.style.background = '#FF6B6B';
+        selectedPlayers = parseInt(this.dataset.players);
     });
+});
+
+document.querySelectorAll('.quiz-opt-btn[data-questions]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.quiz-opt-btn[data-questions]').forEach(function(b) {
+            b.style.background = '#4ECDC4';
+        });
+        this.style.background = '#FF6B6B';
+        totalQuestions = parseInt(this.dataset.questions);
+    });
+});
+
+document.getElementById('btnStartHotSeat').addEventListener('click', function() {
+    startHotSeat();
 });
 
 for (var i = 0; i < 4; i++) {
@@ -1085,6 +1259,10 @@ document.getElementById('answer').addEventListener('keyup', function(e) {
 });
 
 initMultButtons();
+
+totalQuestions = 5;
+document.querySelector('.player-select .quiz-opt-btn[data-players="1"]').style.background = '#FF6B6B';
+document.querySelector('.quiz-opt-btn[data-questions="5"]').style.background = '#FF6B6B';
 
 });
 </script>
