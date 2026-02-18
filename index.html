@@ -18,13 +18,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 8px;
         }
         
         .container {
             background: white;
             border-radius: 20px;
-            padding: 15px;
+            padding: 12px;
             width: 100%;
             max-width: 400px;
             text-align: center;
@@ -33,25 +33,25 @@
         
         h1 {
             color: #4a4a4a;
-            margin: 0 0 5px 0;
-            font-size: 26px;
+            margin: 0 0 10px 0;
+            font-size: 24px;
         }
         
         .subtitle {
             color: #888;
-            margin-bottom: 12px;
-            font-size: 14px;
+            margin-bottom: 10px;
+            font-size: 13px;
         }
         
         .menu-section {
             display: grid;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
         
         .menu-btn {
-            font-size: 20px;
-            padding: 16px;
+            font-size: 18px;
+            padding: 14px;
             border: none;
             border-radius: 12px;
             cursor: pointer;
@@ -78,9 +78,42 @@
             margin: 5px;
         }
         
+        .next-player-btn {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44bd32 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 5px;
+            box-shadow: 0 3px 10px rgba(78, 205, 196, 0.4);
+        }
+        
+        .next-player-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.5);
+        }
+        
+        .back-btn-small {
+            padding: 8px 20px;
+            font-size: 14px;
+            margin: 2px;
+        }
+        
+        .quiz-header {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 8px;
+            padding: 5px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        
         h2 {
-            margin: 10px 0;
-            font-size: 22px;
+            margin: 8px 0;
+            font-size: 20px;
             color: #4a4a4a;
         }
         
@@ -89,13 +122,13 @@
         .mult-btns {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 15px;
+            gap: 6px;
+            margin-bottom: 12px;
         }
         
         .mult-btn {
-            font-size: 20px;
-            padding: 15px 10px;
+            font-size: 18px;
+            padding: 12px 8px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
@@ -111,10 +144,10 @@
         
         .result-box {
             background: #f0f4ff;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 15px 0;
-            min-height: 80px;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 12px 0;
+            min-height: 70px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -122,13 +155,13 @@
         }
         
         .result-expression {
-            font-size: 36px;
+            font-size: 30px;
             font-weight: bold;
             color: #333;
         }
         
         .result-answer {
-            font-size: 48px;
+            font-size: 40px;
             font-weight: bold;
             color: #BB8FCE;
             margin-top: 5px;
@@ -136,9 +169,13 @@
         
         .quiz-options {
             display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .quiz-options.cols-3 {
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
         }
         
         .player-select {
@@ -146,10 +183,10 @@
         }
         
         .quiz-opt-btn {
-            font-size: 22px;
-            padding: 20px 15px;
+            font-size: 16px;
+            padding: 12px 8px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
             background: #4ECDC4;
@@ -224,40 +261,40 @@
         
         .question-box {
             background: #f0f4ff;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 12px;
-        }
-        
-        .problem {
-            font-size: 40px;
-            font-weight: bold;
-            color: #333;
+            border-radius: 12px;
+            padding: 10px;
             margin-bottom: 8px;
         }
         
-        .answer-input {
+        .problem {
             font-size: 32px;
-            width: 110px;
-            padding: 10px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .answer-input {
+            font-size: 28px;
+            width: 100px;
+            padding: 8px;
             text-align: center;
             border: 3px solid #667eea;
-            border-radius: 12px;
+            border-radius: 10px;
             outline: none;
         }
         
         .options {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 6px;
+            margin-bottom: 8px;
         }
         
         .option-btn {
-            font-size: 26px;
-            padding: 18px 12px;
+            font-size: 22px;
+            padding: 14px 10px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
         }
@@ -276,41 +313,41 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 14px 45px;
-            font-size: 20px;
+            padding: 12px 35px;
+            font-size: 18px;
             border-radius: 40px;
             cursor: pointer;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .score {
-            font-size: 18px;
+            font-size: 16px;
             color: #666;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         
         .timer-bar {
             width: 100%;
-            height: 10px;
+            height: 8px;
             background: #e0e0e0;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            border-radius: 4px;
+            margin-bottom: 5px;
             overflow: hidden;
         }
         
         .timer-fill {
             height: 100%;
             background: linear-gradient(90deg, #4ecdc4, #ff6b6b);
-            border-radius: 5px;
+            border-radius: 4px;
             transition: width 0.1s linear;
         }
         
         .timer-text {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             color: #ff6b6b;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         
         .popup-overlay {
@@ -332,11 +369,11 @@
         
         .popup {
             background: white;
-            border-radius: 25px;
-            padding: 20px;
+            border-radius: 20px;
+            padding: 15px;
             text-align: center;
             animation: popIn 0.4s ease-out;
-            max-width: 280px;
+            max-width: 260px;
             width: 90%;
         }
         
@@ -346,7 +383,7 @@
         }
         
         .popup-emoji {
-            font-size: 60px;
+            font-size: 50px;
             animation: bounce 0.6s ease infinite;
         }
         
@@ -356,17 +393,17 @@
         }
         
         .popup-message {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
-            margin: 10px 0;
+            margin: 8px 0;
         }
         
         .popup-answer {
-            font-size: 38px;
+            font-size: 32px;
             font-weight: bold;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 12px;
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 10px;
         }
         
         .popup-answer.correct {
@@ -383,12 +420,12 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 12px 35px;
-            font-size: 18px;
-            border-radius: 40px;
+            padding: 10px 30px;
+            font-size: 16px;
+            border-radius: 35px;
             cursor: pointer;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 8px;
             animation: pulse 1.5s infinite;
         }
         
@@ -398,8 +435,8 @@
         }
         
         .stars {
-            font-size: 40px;
-            margin-bottom: 5px;
+            font-size: 32px;
+            margin-bottom: 3px;
         }
         
         .confetti {
@@ -439,31 +476,31 @@
         }
         
         .name-input {
-            font-size: 20px;
-            padding: 10px;
+            font-size: 18px;
+            padding: 8px;
             text-align: center;
             border: 3px solid #667eea;
-            border-radius: 12px;
+            border-radius: 10px;
             outline: none;
-            width: 200px;
-            margin: 10px 0;
+            width: 180px;
+            margin: 8px 0;
         }
         
         .highscore-list {
             text-align: left;
-            margin: 15px 0;
-            max-height: 300px;
+            margin: 10px 0;
+            max-height: 250px;
             overflow-y: auto;
         }
         
         .highscore-item {
             display: flex;
             justify-content: space-between;
-            padding: 8px 12px;
-            margin: 5px 0;
+            padding: 6px 10px;
+            margin: 4px 0;
             background: #f0f4ff;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 6px;
+            font-size: 14px;
         }
         
         .highscore-item:nth-child(1) { background: #FFD700; }
@@ -484,6 +521,48 @@
             color: #667eea;
         }
         
+        .music-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        
+        .music-toggle {
+            background: #667eea;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .music-toggle:hover {
+            background: #764ba2;
+            transform: scale(1.1);
+        }
+        
+        .music-toggle.muted {
+            background: #ccc;
+        }
+        
+        .volume-slider {
+            width: 120px;
+            height: 8px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+        
         .no-scores {
             color: #888;
             font-style: italic;
@@ -493,17 +572,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>Math Quiz!</h1>
-        <p class="subtitle">Learn multiplication tables!</p>
-        
         <div id="mainMenu" class="menu-section">
+            <h1>Math Quiz!</h1>
             <button class="menu-btn btn-mul" id="btnMultTable">Multiplication Tables</button>
             <button class="menu-btn btn-quiz" id="btnQuiz">Quiz</button>
             <button class="menu-btn btn-scores" id="btnHighScores">High Scores</button>
+            <div class="music-controls">
+                <button class="music-toggle" id="musicToggle">🔊</button>
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="30">
+            </div>
         </div>
         
         <div id="multSection" class="hidden">
-            <h2>Press two buttons!</h2>
+            <h2>Multiplication Tables</h2>
             <div class="mult-btns" id="multBtns"></div>
             <div class="result-box">
                 <div class="result-expression" id="resultExpression">? × ?</div>
@@ -514,12 +595,19 @@
         
         <div id="quizSetup" class="hidden">
             <h2>Quiz Setup</h2>
-            <div class="timer-toggle">
-                <label for="timerToggle">5 Second Timer</label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="timerToggle">
-                    <span class="toggle-slider"></span>
-                </label>
+            <p class="score">Difficulty:</p>
+            <div class="quiz-options">
+                <button class="quiz-opt-btn" data-difficulty="easy">Easy</button>
+                <button class="quiz-opt-btn" data-difficulty="medium">Medium</button>
+                <button class="quiz-opt-btn" data-difficulty="hard">Hard</button>
+                <button class="quiz-opt-btn" data-difficulty="hardcore">Hardcore</button>
+            </div>
+            <p class="score">Timer:</p>
+            <div class="quiz-options">
+                <button class="quiz-opt-btn" data-timer="0">Off</button>
+                <button class="quiz-opt-btn" data-timer="5">5s</button>
+                <button class="quiz-opt-btn" data-timer="10">10s</button>
+                <button class="quiz-opt-btn" data-timer="15">15s</button>
             </div>
             <p class="score">Number of Players:</p>
             <div class="quiz-options player-select">
@@ -529,7 +617,7 @@
                 <button class="quiz-opt-btn" data-players="4">4</button>
             </div>
             <p class="score">Number of Questions:</p>
-            <div class="quiz-options">
+            <div class="quiz-options cols-3">
                 <button class="quiz-opt-btn" data-questions="5">5</button>
                 <button class="quiz-opt-btn" data-questions="10">10</button>
                 <button class="quiz-opt-btn" data-questions="20">20</button>
@@ -550,8 +638,11 @@
         </div>
         
         <div id="quizSection" class="hidden">
-            <div class="score" id="playerIndicator">Player 1</div>
-            <div class="score">Question <span id="questionNum">1</span>/<span id="totalQuestions">10</span> | Score: <span id="score">0</span></div>
+            <div class="quiz-header">
+                <span id="playerIndicator">Player 1</span> | 
+                Q<span id="questionNum">1</span>/<span id="totalQuestions">10</span> | 
+                Score: <span id="score">0</span>
+            </div>
             <div class="timer-bar hidden" id="timerBar">
                 <div class="timer-fill" id="timerFill"></div>
             </div>
@@ -568,7 +659,7 @@
                 <button class="option-btn option-4" id="opt3">7</button>
             </div>
             
-            <button class="back-btn" id="btnQuitQuiz">Quit Quiz</button>
+            <button class="back-btn back-btn-small" id="btnQuitQuiz">Quit</button>
         </div>
         
         <div id="doneSection" class="hidden">
@@ -585,7 +676,7 @@
             <div id="scoreSavedMsg" class="hidden">
                 <p class="score" style="color: #4ECDC4; font-weight: bold;">Score saved!</p>
             </div>
-            <button class="back-btn" id="btnNextPlayer" class="hidden">Next Player</button>
+            <button class="next-player-btn" id="btnNextPlayer">Next Player</button>
             <button class="back-btn" id="btnMenuDone">Back to Menu</button>
         </div>
         
@@ -614,6 +705,10 @@
         </div>
     </div>
     
+    <audio id="bgMusic" loop preload="auto">
+        <source src="Lofi hip hop Volume 1) - 01 - Rise to Shine (Loop Version).flac" type="audio/flac">
+    </audio>
+    
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -628,7 +723,6 @@ var hotSeatResultsSection = document.getElementById('hotSeatResultsSection');
 var multBtnsContainer = document.getElementById('multBtns');
 var resultExpression = document.getElementById('resultExpression');
 var resultAnswer = document.getElementById('resultAnswer');
-var timerToggle = document.getElementById('timerToggle');
 var timerBar = document.getElementById('timerBar');
 var timerFill = document.getElementById('timerFill');
 var timerText = document.getElementById('timerText');
@@ -645,9 +739,11 @@ var correctAnswers = 0;
 var score = 0;
 var currentAnswer = 0;
 var timerEnabled = false;
+var timerDuration = 5;
 var timerInterval = null;
 var timeLeft = 5;
 var isChecking = false;
+var difficulty = 'easy';
 
 function getHighScores() {
     var scores = localStorage.getItem('mathQuizHighScores');
@@ -774,7 +870,7 @@ function startHotSeat() {
     hotSeatPlayers = [];
     currentPlayer = 1;
     askedQuestions = [];
-    timerEnabled = timerToggle.checked;
+    timerEnabled = timerDuration > 0;
     showPlayerReady();
 }
 
@@ -809,7 +905,7 @@ function startQuiz(numQuestions) {
     currentQuestion = 0;
     correctAnswers = 0;
     score = 0;
-    timerEnabled = timerToggle.checked;
+    timerEnabled = timerDuration > 0;
     askedQuestions = [];
     
     document.getElementById('totalQuestions').textContent = totalQuestions;
@@ -842,25 +938,14 @@ function nextQuestion() {
     
     document.getElementById('questionNum').textContent = currentQuestion;
     
-    var num1, num2, questionKey;
-    var attempts = 0;
-    var maxAttempts = 144;
+    var questionData = generateQuestion();
+    askedQuestions.push(questionData.key);
+    currentAnswer = questionData.answer;
     
-    do {
-        num1 = Math.floor(Math.random() * 12) + 1;
-        num2 = Math.floor(Math.random() * 12) + 1;
-        questionKey = num1 + 'x' + num2;
-        attempts++;
-    } while (askedQuestions.indexOf(questionKey) !== -1 && attempts < maxAttempts);
-    
-    askedQuestions.push(questionKey);
-    currentAnswer = num1 * num2;
-    
-    document.getElementById('problem').innerHTML = num1 + ' × ' + num2 + ' = ?';
+    document.getElementById('problem').innerHTML = questionData.problem + ' = ?';
     document.getElementById('answer').value = '';
     
-    var opts = [currentAnswer, currentAnswer + 1, currentAnswer - 1, currentAnswer + 2]
-        .sort(function() { return Math.random() - 0.5; });
+    var opts = generateOptions(currentAnswer);
     
     opts.forEach(function(v, i) {
         var b = document.getElementById('opt' + i);
@@ -876,8 +961,193 @@ function nextQuestion() {
     }
 }
 
+function generateQuestion() {
+    var num1, num2, num3, questionKey, problem, answer;
+    var attempts = 0;
+    var maxAttempts = 200;
+    
+    if (difficulty === 'easy') {
+        do {
+            num1 = Math.floor(Math.random() * 12) + 1;
+            num2 = Math.floor(Math.random() * 12) + 1;
+            questionKey = num1 + 'x' + num2;
+            attempts++;
+        } while (askedQuestions.indexOf(questionKey) !== -1 && attempts < maxAttempts);
+        
+        problem = num1 + ' × ' + num2;
+        answer = num1 * num2;
+    } else if (difficulty === 'medium') {
+        var type = Math.floor(Math.random() * 4);
+        do {
+            if (type === 0) {
+                num1 = Math.floor(Math.random() * 12) + 1;
+                num2 = Math.floor(Math.random() * 12) + 1;
+                questionKey = 'mm' + num1 + 'x' + num2;
+                problem = num1 + ' × ' + num2;
+                answer = num1 * num2;
+            } else if (type === 1) {
+                num2 = Math.floor(Math.random() * 12) + 2;
+                answer = Math.floor(Math.random() * 12) + 1;
+                num1 = num2 * answer;
+                questionKey = 'md' + num1 + '/' + num2;
+                problem = num1 + ' ÷ ' + num2;
+            } else if (type === 2) {
+                num1 = Math.floor(Math.random() * 900) + 100;
+                num2 = Math.floor(Math.random() * 900) + 100;
+                questionKey = 'ma' + num1 + '+' + num2;
+                problem = num1 + ' + ' + num2;
+                answer = num1 + num2;
+            } else {
+                num1 = Math.floor(Math.random() * 900) + 100;
+                num2 = Math.floor(Math.random() * 100) + 10;
+                questionKey = 'ms' + num1 + '-' + num2;
+                problem = num1 + ' - ' + num2;
+                answer = num1 - num2;
+            }
+            attempts++;
+        } while (askedQuestions.indexOf(questionKey) !== -1 && attempts < maxAttempts);
+    } else if (difficulty === 'hard') {
+        var type = Math.floor(Math.random() * 7);
+        do {
+            if (type === 0) {
+                num1 = Math.floor(Math.random() * 90) + 10;
+                num2 = Math.floor(Math.random() * 90) + 10;
+                questionKey = 'h' + num1 + 'x' + num2;
+                problem = num1 + ' × ' + num2;
+                answer = num1 * num2;
+            } else if (type === 1) {
+                num2 = Math.floor(Math.random() * 9) + 2;
+                answer = Math.floor(Math.random() * 15) + 5;
+                num1 = num2 * answer;
+                questionKey = 'hd' + num1 + '/' + num2;
+                problem = num1 + ' ÷ ' + num2;
+            } else if (type === 2) {
+                num1 = Math.floor(Math.random() * 500) + 100;
+                num2 = Math.floor(Math.random() * 500) + 100;
+                questionKey = 'ha' + num1 + '+' + num2;
+                problem = num1 + ' + ' + num2;
+                answer = num1 + num2;
+            } else if (type === 3) {
+                num1 = Math.floor(Math.random() * 500) + 100;
+                num2 = Math.floor(Math.random() * 100) + 20;
+                questionKey = 'hs' + num1 + '-' + num2;
+                problem = num1 + ' - ' + num2;
+                answer = num1 - num2;
+            } else if (type === 4) {
+                num1 = Math.floor(Math.random() * 12) + 3;
+                num2 = Math.floor(Math.random() * 12) + 3;
+                num3 = Math.floor(Math.random() * 50) + 10;
+                questionKey = 'hm' + num1 + 'x' + num2 + '+' + num3;
+                problem = num1 + ' × ' + num2 + ' + ' + num3;
+                answer = (num1 * num2) + num3;
+            } else if (type === 5) {
+                num1 = Math.floor(Math.random() * 12) + 3;
+                num2 = Math.floor(Math.random() * 12) + 3;
+                num3 = Math.floor(Math.random() * 30) + 10;
+                questionKey = 'hmp' + num1 + 'x' + num2 + '-' + num3;
+                problem = num1 + ' × ' + num2 + ' - ' + num3;
+                answer = (num1 * num2) - num3;
+            } else {
+                num1 = Math.floor(Math.random() * 10) + 2;
+                num2 = Math.floor(Math.random() * 10) + 2;
+                num3 = Math.floor(Math.random() * 30) + 5;
+                questionKey = 'hparens' + num1 + 'x' + num2 + '+' + num3;
+                problem = num1 + ' × (' + num2 + ' + ' + num3 + ')';
+                answer = num1 * (num2 + num3);
+            }
+            attempts++;
+        } while (askedQuestions.indexOf(questionKey) !== -1 && attempts < maxAttempts);
+    } else {
+        var type = Math.floor(Math.random() * 8);
+        do {
+            if (type === 0) {
+                num1 = Math.floor(Math.random() * 100) + 50;
+                num2 = Math.floor(Math.random() * 100) + 50;
+                questionKey = 'hc' + num1 + 'x' + num2;
+                problem = num1 + ' × ' + num2;
+                answer = num1 * num2;
+            } else if (type === 1) {
+                num2 = Math.floor(Math.random() * 12) + 2;
+                answer = Math.floor(Math.random() * 50) + 10;
+                num1 = num2 * answer;
+                questionKey = 'hcd' + num1 + '/' + num2;
+                problem = num1 + ' ÷ ' + num2;
+            } else if (type === 2) {
+                num1 = Math.floor(Math.random() * 500) + 200;
+                num2 = Math.floor(Math.random() * 500) + 200;
+                questionKey = 'hca' + num1 + '+' + num2;
+                problem = num1 + ' + ' + num2;
+                answer = num1 + num2;
+            } else if (type === 3) {
+                num1 = Math.floor(Math.random() * 30) + 10;
+                num2 = Math.floor(Math.random() * 20) + 5;
+                var op = Math.random() > 0.5 ? 1 : -1;
+                num3 = op === 1 ? (Math.floor(Math.random() * 30) + 10) : (Math.floor(Math.random() * 15) + 5);
+                questionKey = 'hcneg' + num1 + 'x' + num2 + (op === 1 ? 'p' : 'm') + num3;
+                problem = num1 + ' × ' + num2 + (op === 1 ? ' + ' : ' - ') + num3;
+                answer = op === 1 ? (num1 * num2) + num3 : (num1 * num2) - num3;
+            } else if (type === 4) {
+                num1 = Math.floor(Math.random() * 15) + 3;
+                num2 = Math.floor(Math.random() * 10) + 2;
+                num3 = Math.floor(Math.random() * 10) + 2;
+                questionKey = 'hcparens1' + num1 + 'x' + num2 + '+' + num3;
+                problem = '(' + num1 + ' + ' + num2 + ') × ' + num3;
+                answer = (num1 + num2) * num3;
+            } else if (type === 5) {
+                num1 = Math.floor(Math.random() * 15) + 3;
+                num2 = Math.floor(Math.random() * 10) + 2;
+                num3 = Math.floor(Math.random() * 10) + 2;
+                questionKey = 'hcparens2' + num1 + 'x' + num2 + '-' + num3;
+                problem = '(' + num1 + ' - ' + num2 + ') × ' + num3;
+                answer = (num1 - num2) * num3;
+            } else if (type === 6) {
+                num1 = Math.floor(Math.random() * 12) + 2;
+                answer = num1 * num1;
+                questionKey = 'hcsq' + num1;
+                problem = num1 + '²';
+            } else {
+                num1 = Math.floor(Math.random() * 10) + 3;
+                num2 = Math.floor(Math.random() * 10) + 3;
+                num3 = Math.floor(Math.random() * 20) + 5;
+                var num4 = Math.floor(Math.random() * 10) + 2;
+                questionKey = 'hccomplex' + num1 + '+' + num2 + 'x' + num3 + '-' + num4;
+                problem = num1 + ' + ' + num2 + ' × ' + num3 + ' - ' + num4;
+                answer = num1 + (num2 * num3) - num4;
+            }
+            attempts++;
+        } while (askedQuestions.indexOf(questionKey) !== -1 && attempts < maxAttempts);
+    }
+    
+    return { key: questionKey, problem: problem, answer: answer };
+}
+
+function generateOptions(correctAnswer) {
+    var opts = [correctAnswer];
+    var range;
+    if (difficulty === 'easy') {
+        range = 5;
+    } else if (difficulty === 'medium') {
+        range = 15;
+    } else if (difficulty === 'hard') {
+        range = 30;
+    } else {
+        range = 50;
+    }
+    
+    while (opts.length < 4) {
+        var offset = Math.floor(Math.random() * range) + 1;
+        if (Math.random() > 0.5) offset = -offset;
+        var opt = correctAnswer + offset;
+        if (opt >= 0 && opts.indexOf(opt) === -1) {
+            opts.push(opt);
+        }
+    }
+    
+    return opts.sort(function() { return Math.random() - 0.5; });
+}
+
 function startTimer() {
-    timeLeft = 5;
+    timeLeft = timerDuration;
     updateTimerDisplay();
     
     timerInterval = setInterval(function() {
@@ -893,7 +1163,7 @@ function startTimer() {
 }
 
 function updateTimerDisplay() {
-    var percent = (timeLeft / 5) * 100;
+    var percent = (timeLeft / timerDuration) * 100;
     timerFill.style.width = percent + '%';
     timerText.textContent = Math.ceil(timeLeft);
     
@@ -1261,8 +1531,82 @@ document.getElementById('answer').addEventListener('keyup', function(e) {
 initMultButtons();
 
 totalQuestions = 5;
+difficulty = 'easy';
+timerDuration = 0;
 document.querySelector('.player-select .quiz-opt-btn[data-players="1"]').style.background = '#FF6B6B';
 document.querySelector('.quiz-opt-btn[data-questions="5"]').style.background = '#FF6B6B';
+document.querySelector('.quiz-opt-btn[data-difficulty="easy"]').style.background = '#FF6B6B';
+document.querySelector('.quiz-opt-btn[data-timer="0"]').style.background = '#FF6B6B';
+
+document.querySelectorAll('.quiz-opt-btn[data-difficulty]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.quiz-opt-btn[data-difficulty]').forEach(function(b) {
+            b.style.background = '#4ECDC4';
+        });
+        this.style.background = '#FF6B6B';
+        difficulty = this.dataset.difficulty;
+    });
+});
+
+document.querySelectorAll('.quiz-opt-btn[data-timer]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.quiz-opt-btn[data-timer]').forEach(function(b) {
+            b.style.background = '#4ECDC4';
+        });
+        this.style.background = '#FF6B6B';
+        timerDuration = parseInt(this.dataset.timer);
+    });
+});
+
+var bgMusic = document.getElementById('bgMusic');
+var musicToggle = document.getElementById('musicToggle');
+var volumeSlider = document.getElementById('volumeSlider');
+var musicEnabled = true;
+
+bgMusic.volume = 0.3;
+
+function tryPlayMusic() {
+    bgMusic.play().catch(function(e) {
+        console.log('Autoplay prevented, will play on user interaction');
+    });
+}
+
+tryPlayMusic();
+
+document.addEventListener('click', function playOnFirstClick() {
+    if (bgMusic.paused && musicEnabled) {
+        bgMusic.play().catch(function(e) {});
+    }
+}, { once: false });
+
+musicToggle.addEventListener('click', function() {
+    if (musicEnabled) {
+        bgMusic.pause();
+        musicToggle.textContent = '🔇';
+        musicToggle.classList.add('muted');
+        musicEnabled = false;
+    } else {
+        bgMusic.play().catch(function(e) {});
+        musicToggle.textContent = '🔊';
+        musicToggle.classList.remove('muted');
+        musicEnabled = true;
+    }
+});
+
+volumeSlider.addEventListener('input', function() {
+    bgMusic.volume = volumeSlider.value / 100;
+    if (bgMusic.volume === 0) {
+        musicToggle.textContent = '🔇';
+        musicToggle.classList.add('muted');
+        musicEnabled = false;
+        bgMusic.pause();
+    } else if (bgMusic.paused && !musicEnabled) {
+        musicToggle.textContent = '🔊';
+        musicToggle.classList.remove('muted');
+        musicEnabled = true;
+        bgMusic.play().catch(function(e) {});
+    }
+});
 
 });
 </script>
