@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Math Quiz for Kids</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            padding-bottom: 50px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 25px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #4a4a4a;
+            margin: 0 0 10px 0;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            color: #888;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .question-box {
+            background: #f0f4ff;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .problem {
+            font-size: 52px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .answer-input {
+            font-size: 40px;
+            width: 140px;
+            padding: 15px;
+            text-align: center;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            outline: none;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .option-btn {
+            font-size: 32px;
+            padding: 25px 15px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .option-btn.selected {
+            outline: 4px solid #333;
+            outline-offset: 2px;
+        }
+        
+        .option-1 { background: #ff6b6b; color: white; }
+        .option-2 { background: #4ecdc4; color: white; }
+        .option-3 { background: #ffe66d; color: #333; }
+        .option-4 { background: #95e1d3; color: #333; }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .score {
+            font-size: 22px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .feedback {
+            font-size: 26px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        .feedback.correct {
+            display: block;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .feedback.wrong {
+            display: block;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .stars {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+        
+        .menu-btn {
+            background: #eee;
+            color: #666;
+            border: none;
+            padding: 15px 35px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        .level-select {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .level-btn {
+            font-size: 24px;
+            padding: 22px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .level-add { background: #98D8C8; color: #333; }
+        .level-sub { background: #F7DC6F; color: #333; }
+        .level-mul { background: #BB8FCE; color: white; }
+        .level-mix { background: #85C1E9; color: #333; }
+        
+        .hidden { display: none; }
+        
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .confetti-piece {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            animation: fall 3s linear forwards;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Math Quiz!</h1>
+        <p class="subtitle">Learn math the fun way!</p>
+        
+        <div id="levelSelect" class="level-select">
+            <button class="level-btn level-add" id="btnAdd">Addition</button>
+            <button class="level-btn level-sub" id="btnSub">Subtraction</button>
+            <button class="level-btn level-mul" id="btnMul">Multiplication</button>
+            <button class="level-btn level-mix" id="btnMix">Mixed</button>
+        </div>
+        
+        <div id="quiz" class="hidden">
+            <div class="score">Score: <span id="score">0</span> points</div>
+            <div class="question-box">
+                <div class="problem" id="problem">2 + 3 = ?</div>
+                <input type="tel" class="answer-input" id="answer" placeholder="?" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
+            </div>
+            
+            <div class="options" id="options">
+                <button class="option-btn option-1" id="opt0">5</button>
+                <button class="option-btn option-2" id="opt1">6</button>
+                <button class="option-btn option-3" id="opt2">4</button>
+                <button class="option-btn option-4" id="opt3">7</button>
+            </div>
+            
+            <div class="feedback" id="feedback">Great job!</div>
+            
+            <button class="submit-btn" id="btnCheck">Check Answer</button>
+            <br>
+            <button class="menu-btn" id="btnMenu">Menu</button>
+        </div>
+        
+        <div id="done" class="hidden">
+            <div class="stars" id="stars"></div>
+            <h2>Amazing!</h2>
+            <p class="score">You got <span id="finalScore">0</span> points!</p>
+            <button class="submit-btn" id="btnAgain">Play Again</button>
+        </div>
+    </div>
+    
+    <div class="confetti" id="confetti"></div>
+    
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+var currentLevel = 'add';
+var score = 0;
+var currentAnswer = 0;
+var questionCount = 0;
+
+function bind(id, fn) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener("click", fn);
+}
+
+function startGame(level) {
+  currentLevel = level;
+  score = 0;
+  questionCount = 0;
+  scoreEl.innerHTML = score;
+  levelSelect.classList.add('hidden');
+  quiz.classList.remove('hidden');
+  done.classList.add('hidden');
+  nextQuestion();
+}
+
+function showMenu(){
+  levelSelect.classList.remove('hidden');
+  quiz.classList.add('hidden');
+  done.classList.add('hidden');
+}
+
+const scoreEl = document.getElementById('score');
+const levelSelect = document.getElementById('levelSelect');
+const quiz = document.getElementById('quiz');
+const done = document.getElementById('done');
+const answer = document.getElementById('answer');
+const feedback = document.getElementById('feedback');
+
+function nextQuestion(){
+  questionCount++;
+  if(questionCount>10){showDone();return;}
+
+  let num1=Math.floor(Math.random()*10)+1;
+  let num2=Math.floor(Math.random()*10)+1;
+  currentAnswer=num1+num2;
+
+  document.getElementById('problem').innerHTML=`${num1} + ${num2} = ?`;
+  answer.value='';
+  feedback.style.display='none';
+
+  let opts=[currentAnswer,currentAnswer+1,currentAnswer-1,currentAnswer+2]
+    .sort(()=>Math.random()-0.5);
+
+  opts.forEach((v,i)=>{
+    let b=document.getElementById('opt'+i);
+    b.innerHTML=v;
+    b.dataset.answer=v;
+    b.classList.remove('selected');
+  });
+}
+
+function selectAnswer(i){
+  answer.value=document.getElementById('opt'+i).dataset.answer;
+}
+
+function checkAnswer(){
+  let v=parseInt(answer.value);
+  feedback.style.display='block';
+
+  if(v===currentAnswer){
+    score+=10;
+    scoreEl.innerHTML=score;
+    feedback.innerHTML='Awesome!';
+    feedback.className='feedback correct';
+  }else{
+    feedback.innerHTML='The answer was '+currentAnswer;
+    feedback.className='feedback wrong';
+  }
+
+  setTimeout(nextQuestion,1200);
+}
+
+function showDone(){
+  quiz.classList.add('hidden');
+  done.classList.remove('hidden');
+  document.getElementById('finalScore').innerHTML=score;
+}
+
+/* bindings */
+bind('btnAdd',function(){startGame('add');});
+bind('btnSub',function(){startGame('sub');});
+bind('btnMul',function(){startGame('mul');});
+bind('btnMix',function(){startGame('mix');});
+bind('btnCheck',checkAnswer);
+bind('btnMenu',showMenu);
+bind('btnAgain',showMenu);
+
+bind('opt0',function(){selectAnswer(0);});
+bind('opt1',function(){selectAnswer(1);});
+bind('opt2',function(){selectAnswer(2);});
+bind('opt3',function(){selectAnswer(3);});
+
+});
+</script>
+
+
+
+</body>
+</html>
