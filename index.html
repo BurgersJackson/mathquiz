@@ -557,10 +557,36 @@
         }
         
         .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
             width: 120px;
             height: 8px;
             cursor: pointer;
-            accent-color: #667eea;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            border-radius: 4px;
+            outline: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        .volume-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         
         .no-scores {
