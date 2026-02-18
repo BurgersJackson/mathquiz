@@ -191,6 +191,114 @@
             0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .popup-overlay.show {
+            display: flex;
+        }
+
+        .popup {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            text-align: center;
+            animation: popIn 0.4s ease-out;
+            max-width: 320px;
+            width: 90%;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .popup-emoji {
+            font-size: 80px;
+            animation: bounce 0.6s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .popup-message {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .popup-answer {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .popup-answer.correct {
+            background: linear-gradient(135deg, #4ecdc4, #44bd32);
+            color: white;
+        }
+
+        .popup-answer.wrong {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 22px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            font-size: 30px;
+            animation: sparkleAnim 1s forwards;
+            z-index: 3000;
+        }
+
+        @keyframes sparkleAnim {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.5) rotate(180deg); opacity: 1; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
     </style>
 </head>
 <body>
@@ -219,8 +327,6 @@
                 <button class="option-btn option-4" id="opt3">7</button>
             </div>
             
-            <div class="feedback" id="feedback">Great job!</div>
-            
             <button class="submit-btn" id="btnCheck">Check Answer</button>
             <br>
             <button class="menu-btn" id="btnMenu">Menu</button>
@@ -235,6 +341,15 @@
     </div>
     
     <div class="confetti" id="confetti"></div>
+
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup" id="popup">
+            <div class="popup-emoji" id="popupEmoji">🎉</div>
+            <div class="popup-message" id="popupMessage">Awesome!</div>
+            <div class="popup-answer" id="popupAnswer">5</div>
+            <button class="next-btn" id="btnNext">Next Question ➡️</button>
+        </div>
+    </div>
     
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -271,7 +386,6 @@ const levelSelect = document.getElementById('levelSelect');
 const quiz = document.getElementById('quiz');
 const done = document.getElementById('done');
 const answer = document.getElementById('answer');
-const feedback = document.getElementById('feedback');
 
 function nextQuestion(){
   questionCount++;
@@ -279,11 +393,28 @@ function nextQuestion(){
 
   let num1=Math.floor(Math.random()*10)+1;
   let num2=Math.floor(Math.random()*10)+1;
-  currentAnswer=num1+num2;
+  let op = currentLevel;
+  if(op === 'mix'){
+    let ops = ['add','sub','mul'];
+    op = ops[Math.floor(Math.random()*ops.length)];
+  }
 
-  document.getElementById('problem').innerHTML=`${num1} + ${num2} = ?`;
+  let symbol, answer;
+  if(op === 'add'){
+    symbol = '+';
+    answer = num1 + num2;
+  } else if(op === 'sub'){
+    if(num1 < num2){ let t=num1; num1=num2; num2=t; }
+    symbol = '-';
+    answer = num1 - num2;
+  } else {
+    symbol = '×';
+    answer = num1 * num2;
+  }
+  currentAnswer = answer;
+
+  document.getElementById('problem').innerHTML=`${num1} ${symbol} ${num2} = ?`;
   answer.value='';
-  feedback.style.display='none';
 
   let opts=[currentAnswer,currentAnswer+1,currentAnswer-1,currentAnswer+2]
     .sort(()=>Math.random()-0.5);
@@ -302,19 +433,69 @@ function selectAnswer(i){
 
 function checkAnswer(){
   let v=parseInt(answer.value);
-  feedback.style.display='block';
+  if(isNaN(v)) return;
 
-  if(v===currentAnswer){
+  let isCorrect = v === currentAnswer;
+  let popup = document.getElementById('popup');
+  let emoji = document.getElementById('popupEmoji');
+  let msg = document.getElementById('popupMessage');
+  let ans = document.getElementById('popupAnswer');
+
+  if(isCorrect){
     score+=10;
     scoreEl.innerHTML=score;
-    feedback.innerHTML='Awesome!';
-    feedback.className='feedback correct';
+    emoji.innerHTML = ['🎉','⭐','🌟','✨','🏆','👏','🎊'][Math.floor(Math.random()*7)];
+    msg.innerHTML = ['Awesome!','Great Job!','Amazing!','Fantastic!','Super!','Wow!'][Math.floor(Math.random()*6)];
+    ans.innerHTML = currentAnswer + ' ✓';
+    ans.className = 'popup-answer correct';
+    triggerConfetti();
+    spawnSparkles();
   }else{
-    feedback.innerHTML='The answer was '+currentAnswer;
-    feedback.className='feedback wrong';
+    emoji.innerHTML = ['😊','💪','🙂','🤗'][Math.floor(Math.random()*4)];
+    msg.innerHTML = 'The answer was:';
+    ans.innerHTML = currentAnswer;
+    ans.className = 'popup-answer wrong';
+    popup.classList.add('shake');
+    setTimeout(()=>popup.classList.remove('shake'),500);
   }
 
-  setTimeout(nextQuestion,1200);
+  answer.value='';
+  document.getElementById('popupOverlay').classList.add('show');
+}
+
+function closePopup(){
+  document.getElementById('popupOverlay').classList.remove('show');
+  nextQuestion();
+}
+
+function triggerConfetti(){
+  let confetti = document.getElementById('confetti');
+  confetti.innerHTML = '';
+  let colors = ['#ff6b6b','#4ecdc4','#ffe66d','#95e1d3','#bb8fce','#85c1e9'];
+  for(let i=0;i<50;i++){
+    let piece = document.createElement('div');
+    piece.className='confetti-piece';
+    piece.style.left=Math.random()*100+'%';
+    piece.style.background=colors[Math.floor(Math.random()*colors.length)];
+    piece.style.animationDelay=Math.random()*0.5+'s';
+    piece.style.borderRadius=Math.random()>0.5?'50%':'0';
+    confetti.appendChild(piece);
+  }
+  setTimeout(()=>confetti.innerHTML='',3000);
+}
+
+function spawnSparkles(){
+  for(let i=0;i<12;i++){
+    setTimeout(()=>{
+      let sparkle = document.createElement('div');
+      sparkle.className='sparkle';
+      sparkle.innerHTML=['✨','⭐','💫','🌟'][Math.floor(Math.random()*4)];
+      sparkle.style.left=Math.random()*100+'vw';
+      sparkle.style.top=Math.random()*100+'vh';
+      document.body.appendChild(sparkle);
+      setTimeout(()=>sparkle.remove(),1000);
+    },i*100);
+  }
 }
 
 function showDone(){
@@ -329,6 +510,7 @@ bind('btnSub',function(){startGame('sub');});
 bind('btnMul',function(){startGame('mul');});
 bind('btnMix',function(){startGame('mix');});
 bind('btnCheck',checkAnswer);
+bind('btnNext',closePopup);
 bind('btnMenu',showMenu);
 bind('btnAgain',showMenu);
 
